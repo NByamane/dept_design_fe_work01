@@ -1,1 +1,2 @@
-# dept_design_fe_work01
+# はじめてのReact
+oneshiのReacr + Vite勉強のための個人リポジトリです。
