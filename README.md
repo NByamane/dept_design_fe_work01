@@ -2,7 +2,7 @@
 
 このディレクトリはoneshiの個人勉強用のディレクトリです（　∵　）
 
-## React + Vite
+# React + Vite
 
 このディレクトリは、dept_design_feがReactについて学習を行うためのものです。
 簡単なシングルページの書籍検索アプリケーションの作成を通じて、主に以下のような知識を身につけることができます。
@@ -31,13 +31,13 @@ VSCodeで`dept_design_fe_work01`ディレクトリを開いて、Dev Containers�
 ## 課題の進め方
 - `dept_design_fe_work01`という名称で個人リポジトリを作成した後、`dept_design_fe_work01/`ディレクトリ内のファイル一式をコピーして作業を行なってください。
 - Step毎に作業用ブランチを切って作業を行なってください。
-- issueは[nb_study_react](https://github.com/newbeescoltd/nb_study_react)で作成し、各個人リポジトリのプルリクエストからissueにリンクする。
+- issueは[nb_study_react](https://github.com/newbeescoltd/nb_study_react)で作成し、各個人リポジトリのプルリクエストからissueにリンクする。→[参考記事](https://qiita.com/jollyjoester/items/a59c03d9d1cf9d0a3365)
 - 作業用ブランチをマージ次第、issueをクローズする。
 
 ### 目標物の確認方法
 - `dept_design_fe_work01/booklog/public/steps/`が、目標物を静的ページとしてbuildしたものになります。
-- `dept_design_fe_work01/dist/`にも同じ`steps`ディレクトリがすでにビルドされているので、`npm run preview`した後に[http://127.0.0.1:4173/steps/](http://127.0.0.1:4173/steps/)にアクセスすると、目標物のインデックスページが表示されると思います。
-   ※ポート番号は異なる可能性があるため、ご注意ください。
+- `npm run build`をしてもらうと`dist`ディレクトリに、上記のディレクトリを含めたファイルがビルドされます。
+- `npm run preview`した後に[http://127.0.0.1:4173/steps/](http://127.0.0.1:4173/steps/)にアクセスすると、目標物のインデックスページが表示されると思います。(ポート番号は異なる可能性があるため、ご注意ください。)
 
 ## 各ステップの説明
 1. モックデータを使用して、任意の1冊の情報を表示する。
