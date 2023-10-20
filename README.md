@@ -1,6 +1,3 @@
-# 初めに
-oneshiのReacr + Vite勉強のための個人リポジトリです。
-
 # React + Vite
 
 このディレクトリは、dept_design_feがReactについて学習を行うためのものです。
@@ -23,16 +20,20 @@ VSCodeで`dept_design_fe_work01`ディレクトリを開いて、Dev Containers�
 
 ## ディレクトリ・ファイルの説明
 - booklog: 開発用のディレクトリです。
-- steps: 課題の各ステップの成果物を確認できるディレクトリです。`steps/index.html`が、各ステップへのリンク一覧のページとなっています。
 
 - booklog/src/mockdata.ts: 課題で使うモックデータのためのファイルです。Google Books APIsから取得できるデータに準ずるものになっています。
 - booklog/src/types/index.ts: APIから取得するデータのための型情報です。
 
 ## 課題の進め方
-1. `dept_design_fe_work01`という名称で個人リポジトリを作成して、成果物はそこにアップロードしてください。
-2. Step毎に作業用ブランチを切って作業を行なってください。
-3. issueは[nb_study_react](https://github.com/newbeescoltd/nb_study_react)で作成し、各個人リポジトリのプルリクエストからissueにリンクする。
-4. 作業用ブランチをマージ次第、issueをクローズする。
+- `dept_design_fe_work01`という名称で個人リポジトリを作成した後、`dept_design_fe_work01/`ディレクトリ内のファイル一式をコピーして作業を行なってください。
+- Step毎に作業用ブランチを切って作業を行なってください。
+- issueは[nb_study_react](https://github.com/newbeescoltd/nb_study_react)で作成し、各個人リポジトリのプルリクエストからissueにリンクする。
+- 作業用ブランチをマージ次第、issueをクローズする。
+
+### 目標物の確認方法
+- `dept_design_fe_work01/booklog/public/steps/`が、目標物を静的ページとしてbuildしたものになります。
+- `dept_design_fe_work01/dist/`にも同じ`steps`ディレクトリがすでにビルドされているので、`npm run preview`した後に[http://127.0.0.1:4173/steps/](http://127.0.0.1:4173/steps/)にアクセスすると、目標物のインデックスページが表示されると思います。
+   ※ポート番号は異なる可能性があるため、ご注意ください。
 
 ## 各ステップの説明
 1. モックデータを使用して、任意の1冊の情報を表示する。
@@ -51,7 +52,7 @@ VSCodeで`dept_design_fe_work01`ディレクトリを開いて、Dev Containers�
    - 複数のcomponentで状態を共有できるよう、useContextを使って実装を行なってください。
 
 ### 補足
-- スタイルは見本と違っても大丈夫です。
+- スタイルは目標物と違っても大丈夫です。
 - なんか不具合あればすぐ修正するので教えてください🥹
 
 ## 課題終了後の自主学習のヒント
