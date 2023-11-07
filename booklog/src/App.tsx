@@ -21,9 +21,13 @@ function App() {
               }
               <div className="books-detail-contents">
                 <h2 className="book-ttl">{randomBook.volumeInfo.title}</h2>
-                <p className="book-description">
-                  {randomBook.volumeInfo.description}
-                </p>
+                {
+                  randomBook.volumeInfo.description && (
+                    <p className="book-description">
+                      {randomBook.volumeInfo.description}
+                    </p>
+                  )
+                }
                 {
                   randomBook.volumeInfo.authors && (
                     <p className="book-authors-list">著者：
@@ -40,7 +44,11 @@ function App() {
                     <p className="book-publisher">出版社：{randomBook.volumeInfo.publisher}</p>
                   )
                 }
-                <a href={randomBook.volumeInfo.previewLink} className="book-link">詳しく見る</a>
+                {
+                  randomBook.volumeInfo.previewLink && (
+                    <a href={randomBook.volumeInfo.previewLink} className="book-link">詳しく見る</a>
+                  )
+                }
               </div>
             </div>
           )
