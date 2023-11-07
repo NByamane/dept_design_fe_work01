@@ -14,14 +14,32 @@ function App() {
         {
           randomBook && (
             <div className="books-detail">
-              <img src={randomBook.volumeInfo.imageLinks.thumbnail} className="books-img" alt={randomBook.volumeInfo.title} width="128" height="169" />
+              {
+                randomBook.volumeInfo.imageLinks && (
+                  <img src={randomBook.volumeInfo.imageLinks.thumbnail} className="books-img" alt={randomBook.volumeInfo.title} width="128" height="169" />
+                )
+              }
               <div className="books-detail-contents">
                 <h2 className="book-ttl">{randomBook.volumeInfo.title}</h2>
                 <p className="book-description">
                   {randomBook.volumeInfo.description}
                 </p>
-                <p className="book-author">著者：{randomBook.volumeInfo.authors}</p>
-                <p className="book-publisher">出版社：{randomBook.volumeInfo.publisher}</p>
+                {
+                  randomBook.volumeInfo.authors && (
+                    <p className="book-authors-list">著者：
+                      {
+                        randomBook.volumeInfo.authors.map((author) => (
+                          <span className="author" key={randomBook.id}>{author}</span>
+                        ))
+                      }
+                    </p>
+                  )
+                }
+                {
+                  randomBook.volumeInfo.publisher && (
+                    <p className="book-publisher">出版社：{randomBook.volumeInfo.publisher}</p>
+                  )
+                }
                 <a href={randomBook.volumeInfo.previewLink} className="book-link">詳しく見る</a>
               </div>
             </div>
