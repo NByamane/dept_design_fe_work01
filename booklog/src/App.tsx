@@ -1,33 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react' //reactのuseState使うよ
+import { MOCK_DATA } from './mockdata' //このモックデータ使うよ
+import { BookItem } from './types/index' //この型データ使うよ
+import './App.css' //CSSはここ読み込んでね
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [bookData, setBookData] = useState<BookItem[]>(MOCK_DATA.items); //MOCK_DATAのitemsからランダムにデータを取得し、BookItemの型配列にならって保持するstate。ただここでsetBookDataは使うことがないので削除可？
+  const randomBookIndex = Math.floor(Math.random() * bookData.length); //任意の1冊をランダムに選んで
+  const randomBook = bookData[randomBookIndex]; //randomBook変数に格納する
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <main>
+        {
+          randomBook && (
+            <div className="books-detail">
+              {
+                randomBook.volumeInfo.imageLinks && (
+                  <img src={randomBook.volumeInfo.imageLinks.thumbnail} className="books-img" alt={randomBook.volumeInfo.title} width="128" height="169" />
+                )
+              }
+              <div className="books-detail-contents">
+                <h2 className="book-ttl">{randomBook.volumeInfo.title}</h2>
+                {
+                  randomBook.volumeInfo.description && (
+                    <p className="book-description">
+                      {randomBook.volumeInfo.description}
+                    </p>
+                  )
+                }
+                {
+                  randomBook.volumeInfo.authors && (
+                    <p className="book-authors-list">著者：
+                      {
+                        randomBook.volumeInfo.authors.map((author) => (
+                          <span className="author" key={randomBook.id}>{author}</span>
+                        ))
+                      }
+                    </p>
+                  )
+                }
+                {
+                  randomBook.volumeInfo.publisher && (
+                    <p className="book-publisher">出版社：{randomBook.volumeInfo.publisher}</p>
+                  )
+                }
+                {
+                  randomBook.volumeInfo.previewLink && (
+                    <a href={randomBook.volumeInfo.previewLink} className="book-link">詳しく見る</a>
+                  )
+                }
+              </div>
+            </div>
+          )
+        }
+      </main>
     </>
   )
 }
