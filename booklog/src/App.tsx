@@ -4,55 +4,63 @@ import { BookItem } from './types/index' //この型データ使うよ
 import './App.css' //CSSはここ読み込んでね
 
 function App() {
-  const [bookData, setBookData] = useState<BookItem[]>(MOCK_DATA.items); //MOCK_DATAのitemsからランダムにデータを取得し、BookItemの型配列にならって保持するstate。ただここでsetBookDataは使うことがないので削除可？
-  const randomBookIndex = Math.floor(Math.random() * bookData.length); //任意の1冊をランダムに選んで
-  const randomBook = bookData[randomBookIndex]; //randomBook変数に格納する
+  const [bookData, setBookData] = useState<BookItem[]>(MOCK_DATA.items); //MOCK_DATAのitemsからランダムにデータを取得し、BookItemの型配列にならって保持するstate。
 
   return (
     <>
-      <main>
-        {
-          randomBook && (
-            <div className="books-detail">
-              {
-                randomBook.volumeInfo.imageLinks && (
-                  <img src={randomBook.volumeInfo.imageLinks.thumbnail} className="books-img" alt={randomBook.volumeInfo.title} width="128" height="169" />
-                )
-              }
-              <div className="books-detail-contents">
-                <h2 className="book-ttl">{randomBook.volumeInfo.title}</h2>
-                {
-                  randomBook.volumeInfo.description && (
-                    <p className="book-description">
-                      {randomBook.volumeInfo.description}
-                    </p>
-                  )
-                }
-                {
-                  randomBook.volumeInfo.authors && (
-                    <p className="book-authors-list">著者：
-                      {
-                        randomBook.volumeInfo.authors.map((author) => (
-                          <span className="author" key={randomBook.id}>{author}</span>
-                        ))
-                      }
-                    </p>
-                  )
-                }
-                {
-                  randomBook.volumeInfo.publisher && (
-                    <p className="book-publisher">出版社：{randomBook.volumeInfo.publisher}</p>
-                  )
-                }
-                {
-                  randomBook.volumeInfo.previewLink && (
-                    <a href={randomBook.volumeInfo.previewLink} className="book-link">詳しく見る</a>
-                  )
-                }
-              </div>
-            </div>
-          )
-        }
+      <header className="header">
+        <h1>Booklog</h1>
+      </header>
+      <main className="main">
+        <div className="books-box">
+          {
+            bookData.map((book) => {
+              const { id, volumeInfo } = book;
+              const { imageLinks, title, description, authors, publisher, previewLink } = volumeInfo;
+
+              return (
+                <div key={id} className="books-detail">
+                  {
+                    imageLinks && (
+                      <img src={imageLinks.thumbnail} className="books-img" alt={title} />
+                    )
+                  }
+                  <div className="books-detail-contents">
+                    <h2 className="book-ttl">{title}</h2>
+                    {
+                      description && (
+                        <p className="book-description">
+                          {description}
+                        </p>
+                      )
+                    }
+                    {
+                      authors && (
+                        <p className="book-authors-list">著者：
+                          {
+                            authors.map((author, index) => (
+                              <span className="author" key={index}>{author}</span>
+                            ))
+                          }
+                        </p>
+                      )
+                    }
+                    {
+                      publisher && (
+                        <p className="book-publisher">出版社：{publisher}</p>
+                      )
+                    }
+                    {
+                      previewLink && (
+                        <a href={previewLink} className="book-link">詳しく見る</a>
+                      )
+                    }
+                  </div>
+                </div>
+              )
+            })
+          }
+        </div>
       </main>
     </>
   )
