@@ -1,5 +1,6 @@
 import { useState } from 'react' //reactのuseStateとuseRef使うよ
 import { Search } from './Search'
+import { Timer } from './Timer'
 import { MOCK_DATA } from './mockdata' //このモックデータ使うよ
 import { BookItem } from './types/index' //この型データ使うよ
 import './App.css' //CSSはここ読み込んでね
@@ -12,6 +13,7 @@ function App() {
     <>
       <header className="header">
         <h1 className='booklog-main-ttl'>Booklog</h1>
+        <Timer />{/* タイマー追加 */}
       </header>
       <div className='wrapper'>
         <main className="main">

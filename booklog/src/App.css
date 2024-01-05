@@ -6,6 +6,10 @@
   color: #170c45;
 }
 
+canvas {
+  display: none;
+}
+
 html,
 body {
   font-family: Helvetica Neue, Arial, Hiragino Kaku Gothic ProN, Hiragino Sans, Meiryo, sans-serif;
@@ -46,6 +50,48 @@ body {
   max-width: 1280px;
   width: 100%;
   color: #170c45;
+}
+
+/*タイマー*/
+.reading-timer {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 30px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.reading-timer-box {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.reading-timer-select-box {
+  border: 3px solid #38cbd0;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  padding: 5px;
+  margin-left: 10px;
+  height: 33px;
+}
+
+.reading-timer-button {
+  border: 3px solid #38cbd0;
+  height: 33px;
+  border-radius: 0 5px 5px 0;
+  background: #38cbd0;
+  color: #fff;
+  vertical-align: middle;
+  padding: 0 10px;
+  font-weight: normal;
+}
+
+.remaining-time-txt-finish {
+  color: #ff0000;
+  font-weight: bold;
 }
 
 /*---検索ボタン---*/
