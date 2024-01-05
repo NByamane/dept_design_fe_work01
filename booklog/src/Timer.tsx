@@ -4,6 +4,7 @@ export const Timer = (): JSX.Element => {
 	const [time, setTime] = useState(5); // 初期値5で残りの秒数を補完するtime
 	const [timerActive, setTimerActive] = useState(false); // タイマーが動いてるかどうかを補完。初期値は止まってるのでfalse
 
+	//これ、やりたいこと（　∵　）
 	//①selectで秒数選択した時
 	const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		event.preventDefault(); //デフォルトの挙動を抑制
@@ -19,12 +20,17 @@ export const Timer = (): JSX.Element => {
 		event.preventDefault(); //デフォルトの挙動を抑制
 
 		if (!timerActive) { //タイマーが止まってる時だけbuttonクリックを有効に
+			// まずoptionのvalueの数値を取ってきてsetTimeにセット
+			const selectedOption = document.getElementById("reading-timer-select-box") as HTMLSelectElement;
+			const selectedValue = parseInt(selectedOption.value, 10);
+			setTime(selectedValue);
+
+			// タイマーを起動
 			setTimerActive(true);
-		} else {
-			setTimerActive(false);
 		}
 	};
 
+	// タイマーの機能（　∵　）
 	useEffect(() => {
 		let intervalId: number = 0;
 
@@ -49,6 +55,7 @@ export const Timer = (): JSX.Element => {
 		};
 	}, [timerActive, time]);
 
+	// 調査用
 	console.log(time);
 	console.log(timerActive);
 
@@ -62,7 +69,6 @@ export const Timer = (): JSX.Element => {
 					name="reading-timer"
 					id="reading-timer-select-box"
 					className="reading-timer-select-box"
-					value={time}
 					onChange={handleSelectChange}
 				>
 					<option value={5}>5秒</option>
