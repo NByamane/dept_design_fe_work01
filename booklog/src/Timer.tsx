@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export const Timer = (): JSX.Element => {
 	const [time, setTime] = useState(5); // 初期値5で残りの秒数を補完するtime
 	const [timerActive, setTimerActive] = useState(false); // タイマーが動いてるかどうかを補完。初期値は止まってるのでfalse
+	const selectRef = useRef<HTMLSelectElement>(null); //useRefでDOMにアクセス、初期値null
 
 	//これ、やりたいこと（　∵　）
 	//①selectで秒数選択した時
@@ -20,10 +21,7 @@ export const Timer = (): JSX.Element => {
 		event.preventDefault(); //デフォルトの挙動を抑制
 
 		if (!timerActive) { //タイマーが止まってる時だけbuttonクリックを有効に
-			// まずoptionのvalueの数値を取ってきてsetTimeにセット
-			const selectedOption = document.getElementById("reading-timer-select-box") as HTMLSelectElement;
-			const selectedValue = parseInt(selectedOption.value, 10);
-			setTime(selectedValue);
+			setTime(parseInt(selectRef.current?.value || "5", 10)); //selectRefで数値取得に変更
 
 			// タイマーを起動
 			setTimerActive(true);
@@ -32,27 +30,30 @@ export const Timer = (): JSX.Element => {
 
 	// タイマーの機能（　∵　）
 	useEffect(() => {
-		let intervalId: number = 0;
+		// timerActiveがfalseの場合は早期リターン
+		if (!timerActive) {
+			return;
+		} else {
+			// カウントダウンの仕様
+			const handleInterval = () => {
+				setTime((prev) => (prev > 0 ? prev - 1 : 0));
+			};
 
-		const handleInterval = () => {
-			setTime((prev) => (prev > 0 ? prev - 1 : 0));
-		};
+			// 0になるまで
+			const intervalId = time > 0 ? window.setInterval(handleInterval, 1000) : 0;
 
-		if (timerActive && time > 0) {
-			intervalId = window.setInterval(handleInterval, 1000);
-		}
-
-		// タイマーが0になったら自動的に停止
-		if (time === 0 && timerActive) {
-			setTimerActive(false);
-		}
-
-		// クリーンアップ
-		return () => {
-			if (intervalId) {
-				clearInterval(intervalId);
+			// 0になったら
+			if (time === 0) {
+				setTimerActive(false);
 			}
-		};
+
+			// クリーンアップ
+			return () => {
+				if (intervalId) {
+					clearInterval(intervalId);
+				}
+			};
+		}
 	}, [timerActive, time]);
 
 	// 調査用
@@ -66,6 +67,7 @@ export const Timer = (): JSX.Element => {
 			</p>
 			<form className="reading-timer-box">
 				<select
+					ref={selectRef}
 					name="reading-timer"
 					id="reading-timer-select-box"
 					className="reading-timer-select-box"
