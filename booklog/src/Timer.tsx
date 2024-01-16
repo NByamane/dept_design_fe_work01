@@ -31,34 +31,32 @@ export const Timer = (): JSX.Element => {
 	// タイマーの機能（　∵　）
 	useEffect(() => {
 		// timerActiveがfalseの場合は早期リターン
-		if (!timerActive) {
-			return;
-		} else {
-			// カウントダウンの仕様
-			const handleInterval = () => {
-				setTime((prev) => (prev > 0 ? prev - 1 : 0));
-			};
+		if (!timerActive) return;
 
-			// 0になるまで
-			const intervalId = time > 0 ? window.setInterval(handleInterval, 1000) : 0;
+		// カウントダウンの仕様
+		const handleInterval = () => {
+			setTime((prev) => (prev > 0 ? prev - 1 : 0));
+		};
 
-			// 0になったら
-			if (time === 0) {
-				setTimerActive(false);
-			}
+		// 0になるまで
+		const intervalId = time > 0 ? window.setInterval(handleInterval, 1000) : 0;
 
-			// クリーンアップ
-			return () => {
-				if (intervalId) {
-					clearInterval(intervalId);
-				}
-			};
+		// 0になったら
+		if (time === 0) {
+			setTimerActive(false);
 		}
+
+		// クリーンアップ
+		return () => {
+			if (intervalId) {
+				clearInterval(intervalId);
+			}
+		};
 	}, [timerActive, time]);
 
 	// 調査用
-	console.log(time);
-	console.log(timerActive);
+	// console.log(time);
+	// console.log(timerActive);
 
 	return (
 		<div className="reading-timer">
