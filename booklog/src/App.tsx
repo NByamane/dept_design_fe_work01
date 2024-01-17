@@ -6,7 +6,6 @@ import './App.css' //CSSはここ読み込んでね
 
 function App() {
   const [bookData, setBookData] = useState<BookItem[]>([]); //Goole Books APIsからデータを取得し、BookItemの型配列にならって保持するstate
-  const [searchQuery, setSearchQuery] = useState<string>(''); //警告が出てますが、今回はsearchQuery自体は使わないので一旦無視…で良いですか？😇
 
   return (
     <>
@@ -16,7 +15,7 @@ function App() {
       </header>
       <div className='wrapper'>
         <main className="main">
-          <Search setSearchQuery={setSearchQuery} setBookData={setBookData} />{/* Searchコンポーネントを読み込む */}
+          <Search setBookData={setBookData} />{/* Searchコンポーネントを読み込む */}
           <div className="books-box">
             {
               bookData.map((book) => {

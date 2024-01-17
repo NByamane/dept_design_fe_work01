@@ -3,18 +3,16 @@ import { BookItem } from './types/index'
 
 // 親コンポーネントから受け取るデータの型定義
 interface SearchProps {
-	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 	setBookData: React.Dispatch<React.SetStateAction<BookItem[]>>;
 }
 
-export const Search = ({ setSearchQuery, setBookData }: SearchProps): JSX.Element => {
+export const Search: React.FC<SearchProps> = ({ setBookData }): JSX.Element => {
 	const searchRef = useRef<HTMLInputElement>(null); //初期値としてnullを渡す。HTMLInputElementで参照する要素はinputだよ〜といってる。ジェネリクス+Elementの型指定。
 
 	//送信時のイベント
 	const pushSearch = async (event: React.FormEvent<HTMLFormElement>) => { //React.FormEventで、フォーム送信時に発火
 		event.preventDefault(); //ページが更新されるのを一旦ストップ
 		const inputValue = searchRef.current?.value; //nullの可能性があるのでオプショナルチェーンで確実にvalueにアクセスできるようにする
-		setSearchQuery(inputValue || ''); //検索ワードを更新
 
 		//APIリクエスト
 		try {
