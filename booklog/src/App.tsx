@@ -1,13 +1,12 @@
-import { useState } from 'react' //reactのuseStateとuseRef使うよ
+import { useState } from 'react' //reactのuseState使うよ
 import { Search } from './Search'
 import { Timer } from './Timer'
-import { MOCK_DATA } from './mockdata' //このモックデータ使うよ
 import { BookItem } from './types/index' //この型データ使うよ
 import './App.css' //CSSはここ読み込んでね
 
 function App() {
-  //MOCK_DATAのitemsからランダムにデータを取得し、BookItemの型配列にならって保持するstate。
-  const [bookData] = useState<BookItem[]>(MOCK_DATA.items);
+  const [bookData, setBookData] = useState<BookItem[]>([]); //Goole Books APIsからデータを取得し、BookItemの型配列にならって保持するstate
+  const [totalItems, setTotalItems] = useState<number>(0);
 
   return (
     <>
@@ -17,7 +16,15 @@ function App() {
       </header>
       <div className='wrapper'>
         <main className="main">
-          <Search />{/* Searchコンポーネントを読み込む */}
+          <Search setBookData={setBookData} setTotalItems={setTotalItems} />{/* Searchコンポーネントを読み込む */}
+          {
+            totalItems > 0 && (
+              <p className="num-data">
+                {totalItems}件の書籍が見つかりました。<br />
+                そのうち{bookData.length}件を表示します。
+              </p>
+            )
+          }
           <div className="books-box">
             {
               bookData.map((book) => {
