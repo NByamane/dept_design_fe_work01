@@ -2,11 +2,12 @@ import { useRef } from 'react' //reactのuseRefを使うよ
 import { BookItem } from './types/index'
 
 // 親コンポーネントから受け取るデータの型定義
-interface SearchProps {
+type SearchProps = {
 	setBookData: React.Dispatch<React.SetStateAction<BookItem[]>>;
+	setTotalItems: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const Search: React.FC<SearchProps> = ({ setBookData }): JSX.Element => {
+export const Search: React.FC<SearchProps> = ({ setBookData, setTotalItems }): JSX.Element => {
 	const searchRef = useRef<HTMLInputElement>(null); //初期値としてnullを渡す。HTMLInputElementで参照する要素はinputだよ〜といってる。ジェネリクス+Elementの型指定。
 
 	//送信時のイベント
@@ -20,18 +21,22 @@ export const Search: React.FC<SearchProps> = ({ setBookData }): JSX.Element => {
 				return;
 			}
 
-			const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(inputValue)}t&maxResults=10&key=AIzaSyCQT7Sg-xEq72wJgmK11kgu5GYF2n1HWpk`);
+			const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(inputValue)}&maxResults=10&key=AIzaSyCQT7Sg-xEq72wJgmK11kgu5GYF2n1HWpk`);
 			if (!response.ok) {
-				throw new Error(`Failed to fetch data. Status: ${response.status}`);
+				console.error('response.ok:', response.ok);
+				console.error('esponse.status:', response.status);
+				console.error('esponse.statusText:', response.statusText);
+				throw new Error(response.statusText);
 			}
 
 			const data = await response.json();
 
 			if (data.items) {
 				setBookData(data.items);
+				setTotalItems(data.totalItems); //トータル件数取得
 			}
 		} catch (error) {
-			console.error('Error fetching data from Google Books API:', error);
+			console.error('通信に失敗しました', error);
 		}
 	};
 
