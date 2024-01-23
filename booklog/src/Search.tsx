@@ -1,4 +1,4 @@
-import { useRef } from 'react' //reactのuseRefを使うよ
+import { useRef } from 'react'
 import { BookItem } from './types/index'
 
 // 親コンポーネントから受け取るデータの型定義
