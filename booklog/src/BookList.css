@@ -86,7 +86,11 @@
 }
 
 .aside .books-detail:not(:last-child) {
-	padding: 0 0 20px 0;
+	padding: 20px 0;
+}
+
+.aside .books-box {
+	height: 100%;
 }
 
 .aside .books-detail-contents {
@@ -127,10 +131,4 @@
 	background: #38cbd0;
 	opacity: 1;
 	transition: .3s;
-}
-
-/*非表示設定*/
-.aside .book-description,
-.aside .book-publisher {
-	display: none;
 }

@@ -3,9 +3,10 @@ import './BookList.css'
 
 type BookListProps = {
 	bookData: BookItem[];
+	isMyBookList: Boolean;
 }
 
-export const BookList: React.FC<BookListProps> = ({ bookData }): JSX.Element => {
+export const BookList: React.FC<BookListProps> = ({ bookData, isMyBookList }): JSX.Element => {
 	return (
 		<div className="books-box">
 			{
@@ -23,7 +24,7 @@ export const BookList: React.FC<BookListProps> = ({ bookData }): JSX.Element => 
 							<div className="books-detail-contents">
 								<h2 className="book-ttl">{title}</h2>
 								{
-									description && (
+									description && !isMyBookList && (
 										<p className="book-description">
 											{description}
 										</p>
@@ -41,7 +42,7 @@ export const BookList: React.FC<BookListProps> = ({ bookData }): JSX.Element => 
 									)
 								}
 								{
-									publisher && (
+									publisher && !isMyBookList && (
 										<p className="book-publisher">出版社：{publisher}</p>
 									)
 								}
