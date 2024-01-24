@@ -1,4 +1,5 @@
 import { BookItem } from './types/index'
+import './BookList.css'
 
 type BookListProps = {
 	bookData: BookItem[];

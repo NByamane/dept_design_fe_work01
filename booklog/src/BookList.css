@@ -1,0 +1,136 @@
+.books-box {
+	max-width: 820px;
+	width: 100%;
+	margin: 0 auto;
+	height: calc(100vh - 191.66px);
+	overflow-y: scroll;
+}
+
+.books-detail {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 20px 0;
+}
+
+.books-detail:not(:last-child) {
+	border-bottom: 1px solid #cbc5d6;
+}
+
+.books-img {
+	width: 128px;
+	height: auto;
+}
+
+.books-detail-contents {
+	width: calc(100% - 128px);
+	text-align: left;
+	padding: 14px 18px;
+}
+
+.book-ttl {
+	margin: initial;
+	color: #170c45;
+}
+
+.book-description,
+.book-authors-list,
+.book-publisher {
+	margin: 10px 0 0;
+	color: #170c45;
+}
+
+.book-description {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+
+.book-ttl+p {
+	margin: 0.6em 0 0;
+}
+
+.author:not(:last-child)::after {
+	position: relative;
+	content: ',';
+	font-size: 1em;
+}
+
+.book-link {
+	display: inline-block;
+	padding: 3px 10px;
+	margin-top: 10px;
+	border-radius: 5px;
+	font-size: 14px;
+	text-align: center;
+	outline: none;
+	cursor: pointer;
+	color: #fff;
+	border: 3px solid #38cbd0;
+	background: #38cbd0;
+	opacity: 1;
+	transition: .3s;
+}
+
+.book-link:hover {
+	opacity: 0.5;
+	color: #fff;
+}
+
+/*---MyBookList---*/
+.aside .books-detail {
+	background: #eee;
+	display: block;
+}
+
+.aside .books-detail:not(:last-child) {
+	padding: 0 0 20px 0;
+}
+
+.aside .books-detail-contents {
+	background: #eee;
+	width: 100%;
+	padding: 0;
+}
+
+.aside .book-ttl {
+	font-size: 16px;
+	background: #eee;
+}
+
+.aside .book-authors-list {
+	background: #eee;
+	font-size: 14px;
+}
+
+.aside .book-authors-list .author {
+	background: #eee;
+}
+
+.aside .book-list-author {
+	background: #eee;
+}
+
+.aside .book-link {
+	display: inline-block;
+	padding: 3px 10px;
+	margin-top: 10px;
+	border-radius: 5px;
+	font-size: 14px;
+	text-align: center;
+	outline: none;
+	cursor: pointer;
+	color: #fff;
+	border: 3px solid #38cbd0;
+	background: #38cbd0;
+	opacity: 1;
+	transition: .3s;
+}
+
+/*非表示設定*/
+.aside .book-description,
+.aside .book-publisher {
+	display: none;
+}
