@@ -1,22 +1,28 @@
-import { useState } from 'react' //reactのuseState使うよ
+import { useState } from 'react'
 import { Search } from './Search'
 import { Timer } from './Timer'
-import { BookItem } from './types/index' //この型データ使うよ
-import './App.css' //CSSはここ読み込んでね
+import { BookList } from './BookList'
+import { BookItem } from './types/index' //型データ
+import { MOCK_DATA } from './mockdata'
+import './App.css'
 
 function App() {
   const [bookData, setBookData] = useState<BookItem[]>([]); //Goole Books APIsからデータを取得し、BookItemの型配列にならって保持するstate
+  const [myBookListData] = useState<BookItem[]>(MOCK_DATA.items); //MyBookList用のmockdataを保持
   const [totalItems, setTotalItems] = useState<number>(0);
 
   return (
     <>
       <header className="header">
         <h1 className='booklog-main-ttl'>Booklog</h1>
-        <Timer />{/* タイマー追加 */}
+        <Timer />
       </header>
       <div className='wrapper'>
+        <aside className='aside'>
+          <BookList bookData={myBookListData} isMyBookList={true} />
+        </aside>
         <main className="main">
-          <Search setBookData={setBookData} setTotalItems={setTotalItems} />{/* Searchコンポーネントを読み込む */}
+          <Search setBookData={setBookData} setTotalItems={setTotalItems} />
           {
             totalItems > 0 && (
               <p className="num-data">
@@ -25,55 +31,7 @@ function App() {
               </p>
             )
           }
-          <div className="books-box">
-            {
-              bookData.map((book) => {
-                const { id, volumeInfo } = book;
-                const { imageLinks, title, description, authors, publisher, previewLink } = volumeInfo;
-
-                return (
-                  <div key={id} className="books-detail">
-                    {
-                      imageLinks && (
-                        <img src={imageLinks.thumbnail} className="books-img" alt={title} />
-                      )
-                    }
-                    <div className="books-detail-contents">
-                      <h2 className="book-ttl">{title}</h2>
-                      {
-                        description && (
-                          <p className="book-description">
-                            {description}
-                          </p>
-                        )
-                      }
-                      {
-                        authors && (
-                          <p className="book-authors-list">著者：
-                            {
-                              authors.map((author) => (
-                                <span className="author" key={author}>{author}</span>
-                              ))
-                            }
-                          </p>
-                        )
-                      }
-                      {
-                        publisher && (
-                          <p className="book-publisher">出版社：{publisher}</p>
-                        )
-                      }
-                      {
-                        previewLink && (
-                          <a href={previewLink} className="book-link">詳しく見る</a>
-                        )
-                      }
-                    </div>
-                  </div>
-                )
-              })
-            }
-          </div>
+          <BookList bookData={bookData} isMyBookList={false} />
         </main>
       </div>
     </>
