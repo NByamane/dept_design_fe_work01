@@ -33,12 +33,18 @@ body {
   background: #eee;
   height: 100vh;
   overflow-y: scroll;
+  border-right: 2px solid #cbc5d6;
 }
 
 .main {
   padding: 62px 3% 0;
   width: 75%;
   margin: auto;
+}
+
+button:focus,
+button:focus-visible {
+  outline: none;
 }
 
 /*---header---*/
