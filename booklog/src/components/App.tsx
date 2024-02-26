@@ -1,20 +1,15 @@
-import { useState, createContext } from 'react'
+import { useState } from 'react'
 import { Search } from './Search'
 import { Timer } from './Timer'
 import { BookList } from './BookList'
-import { BookItem } from './types/index' //型データ
-import './App.css'
-
-// 子コンポーネントでも使用する変数たち
-export const bookListContext = createContext<{
-  bookData: BookItem[];
-  myBookListData: BookItem[];
-  setMyBookListData: React.Dispatch<React.SetStateAction<BookItem[]>>;
-} | undefined>(undefined); // 初期値undefined指定でエラー回避
+import { MyBooks } from './MyBooks'
+import { BookItem } from '../types/index'
+import { bookListContext } from '../contexts/BookListContext';
+import '../css/App.css'
 
 function App() {
   const [bookData, setBookData] = useState<BookItem[]>([]);
-  const [myBookListData, setMyBookListData] = useState<BookItem[]>([]); // 追加・削除ボタンを押したタイミングで格納・削除されるデータ
+  const [myBookListData, setMyBookListData] = useState<BookItem[]>([]);
   const [totalItems, setTotalItems] = useState<number>(0);
 
   return (
@@ -26,7 +21,7 @@ function App() {
         </header>
         <div className='wrapper'>
           <aside className='aside'>
-            <BookList isMyBookList={true} />
+            <MyBooks />
           </aside>
           <main className="main">
             <Search setBookData={setBookData} setTotalItems={setTotalItems} />
@@ -38,7 +33,7 @@ function App() {
                 </p>
               )
             }
-            <BookList isMyBookList={false} />
+            <BookList />
           </main>
         </div>
       </bookListContext.Provider>
