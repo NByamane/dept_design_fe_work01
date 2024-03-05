@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import './Timer.css'
+import '../css/Timer.css'
 
 export const Timer = (): JSX.Element => {
 	const [time, setTime] = useState(5); // 初期値5で残りの秒数を補完するtime
