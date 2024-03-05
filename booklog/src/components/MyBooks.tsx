@@ -1,14 +1,13 @@
 import { useContext } from 'react'
 import '../css/BookList.css'
-import { bookListContext, useBookListFunctions } from '../contexts/BookListContext';
+import { MyBooksContext } from '../contexts/BookListContext';
 
 export const MyBooks: React.FC = (): JSX.Element => {
-	const { myBookListData, setMyBookListData } = useContext(bookListContext);
-	const { handleDeleteFromMyBooks } = useBookListFunctions();
+	const { myBooks, removeFromMyBooks } = useContext(MyBooksContext);
 
 	return (
 		<div className="books-box">
-			{myBookListData.map((book) => {
+			{myBooks.map((book) => {
 				const { id, volumeInfo } = book;
 				const { imageLinks, title, authors, previewLink } = volumeInfo;
 
@@ -36,7 +35,7 @@ export const MyBooks: React.FC = (): JSX.Element => {
 									</li>
 								)}
 								<li className="book-btn book-delete-btn">
-									<button className="delete-my-books-btn" onClick={handleDeleteFromMyBooks(book, setMyBookListData)}>
+									<button className="delete-my-books-btn" onClick={removeFromMyBooks.bind(null, book)}>
 										MyBooksから削除
 									</button>
 								</li>

@@ -1,10 +1,17 @@
 import { useContext } from 'react'
+import { BookItem } from '../types/index'
 import '../css/BookList.css'
-import { bookListContext, useBookListFunctions } from '../contexts/BookListContext';
+import { MyBooksContext } from '../contexts/BookListContext';
 
-export const BookList: React.FC = (): JSX.Element => {
-	const { bookData, setMyBookListData } = useContext(bookListContext);
-	const { handleAddToMyBooks } = useBookListFunctions();
+type BookListProps = {
+	bookData: BookItem[];
+}
+
+export const BookList: React.FC<BookListProps> = ({ bookData }): JSX.Element => {
+	const { addToMyBooks } = useContext(MyBooksContext);
+	const handleAddToMyBooks = (book: BookItem): void => {
+		addToMyBooks(book);
+	}
 
 	return (
 		<div className="books-box">
@@ -56,7 +63,7 @@ export const BookList: React.FC = (): JSX.Element => {
 									{
 										(
 											<li className='book-btn book-add-btn'>
-												<button className='add-my-books-btn' onClick={handleAddToMyBooks(book, setMyBookListData)}>MyBooksに追加</button>
+												<button className='add-my-books-btn' onClick={handleAddToMyBooks.bind(null, book)}>MyBooksに追加</button>
 											</li>
 										)
 									}

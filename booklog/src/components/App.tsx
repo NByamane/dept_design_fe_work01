@@ -4,17 +4,16 @@ import { Timer } from './Timer'
 import { BookList } from './BookList'
 import { MyBooks } from './MyBooks'
 import { BookItem } from '../types/index'
-import { bookListContext } from '../contexts/BookListContext';
+import { MyBooksProvider } from '../contexts/BookListContext';
 import '../css/App.css'
 
 function App() {
   const [bookData, setBookData] = useState<BookItem[]>([]);
-  const [myBookListData, setMyBookListData] = useState<BookItem[]>([]);
   const [totalItems, setTotalItems] = useState<number>(0);
 
   return (
     <>
-      <bookListContext.Provider value={{ bookData, myBookListData, setMyBookListData }}>
+      <MyBooksProvider>
         <header className="header">
           <h1 className='booklog-main-ttl'>Booklog</h1>
           <Timer />
@@ -33,10 +32,10 @@ function App() {
                 </p>
               )
             }
-            <BookList />
+            <BookList bookData={bookData} />
           </main>
         </div>
-      </bookListContext.Provider>
+      </MyBooksProvider>
     </>
   )
 }

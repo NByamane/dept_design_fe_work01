@@ -1,46 +1,43 @@
-import { createContext, useContext, useCallback } from 'react'
-import { BookItem } from '../types/index' //型データ
+import React, { createContext, useState } from 'react'
+import type { BookItem } from '../types'
 
-// 子コンポーネントでも使用する変数の型定義
-type BookListContextType = {
-  bookData: BookItem[];
-  myBookListData: BookItem[];
-  setMyBookListData: React.Dispatch<React.SetStateAction<BookItem[]>>;
-};
+type Props = {
+  children: React.ReactNode
+}
 
-// Contextの初期値定義
-const initialBookListContext: BookListContextType = {
-  bookData: [],
-  myBookListData: [],
-  setMyBookListData: () => { }
-};
+export type MyBooks = BookItem[] | []
 
-// createContextを使用して初期値代入
-export const bookListContext = createContext<BookListContextType>(initialBookListContext);
+type MyBooksProps = {
+  myBooks: MyBooks
+  addToMyBooks: (newBook: BookItem) => void
+  removeFromMyBooks: (targetBook: BookItem) => void
+}
 
-// データの値が取得できてるかを確認
-export const useBookListContext = () => {
-  const context = useContext(bookListContext);
-  if (!context) {
-    throw new Error('取得できてないっぽい（∵）');
+const initialMyBooks: MyBooks = []
+
+const defaultMyBooks: MyBooksProps = {
+  myBooks: initialMyBooks,
+  addToMyBooks: () => { },
+  removeFromMyBooks: () => { },
+}
+
+export const MyBooksContext = createContext<MyBooksProps>(defaultMyBooks)
+
+export function MyBooksProvider({ children }: Props) {
+  const [myBooks, setMyBooks] = useState(initialMyBooks)
+
+  function addToMyBooks(newBook: BookItem) {
+    myBooks.some((book: BookItem) => book.id === newBook.id)
+      ? alert('その本はすでにマイブックに存在します。')
+      : setMyBooks([...myBooks, newBook])
   }
-  return context;
-};
+  function removeFromMyBooks(targetBook: BookItem) {
+    myBooks.some((book: BookItem) => book.id === targetBook.id)
+      ? setMyBooks(myBooks.filter((book: BookItem) => book.id !== targetBook.id))
+      : alert('その本はマイブックに存在しません。')
+  }
 
-// 追加・削除ボタン機能作るよ
-export const useBookListFunctions = () => {
-  return {
-    handleAddToMyBooks: useCallback((book: BookItem, setMyBookListData: React.Dispatch<React.SetStateAction<BookItem[]>>) =>
-      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault();
-        setMyBookListData && setMyBookListData((prevData) => [...prevData, book]);
-      }, []
-    ),
-    handleDeleteFromMyBooks: useCallback((book: BookItem, setMyBookListData: React.Dispatch<React.SetStateAction<BookItem[]>>) =>
-      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault();
-        setMyBookListData && setMyBookListData((prevData) => prevData.filter((b) => b.id !== book.id));
-      }, []
-    )
-  };
-};
+  return (
+    <MyBooksContext.Provider value={{ myBooks, addToMyBooks, removeFromMyBooks }}>{children}</MyBooksContext.Provider>
+  )
+}
