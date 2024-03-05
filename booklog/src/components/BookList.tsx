@@ -9,9 +9,6 @@ type BookListProps = {
 
 export const BookList: React.FC<BookListProps> = ({ bookData }): JSX.Element => {
 	const { addToMyBooks } = useContext(MyBooksContext);
-	const handleAddToMyBooks = (book: BookItem): void => {
-		addToMyBooks(book);
-	}
 
 	return (
 		<div className="books-box">
@@ -63,7 +60,7 @@ export const BookList: React.FC<BookListProps> = ({ bookData }): JSX.Element => 
 									{
 										(
 											<li className='book-btn book-add-btn'>
-												<button className='add-my-books-btn' onClick={handleAddToMyBooks.bind(null, book)}>MyBooksに追加</button>
+												<button className='add-my-books-btn' onClick={addToMyBooks.bind(null, book)}>MyBooksに追加</button>
 											</li>
 										)
 									}
