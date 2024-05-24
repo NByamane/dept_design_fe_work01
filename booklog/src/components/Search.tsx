@@ -1,6 +1,6 @@
 import { useRef } from 'react'
-import { BookItem } from './types/index'
-import './Search.css'
+import { BookItem } from '../types/index'
+import '../css/Search.css'
 
 // 親コンポーネントから受け取るデータの型定義
 type SearchProps = {
